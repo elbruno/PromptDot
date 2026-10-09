@@ -50,4 +50,27 @@ Not yet interactively validated on macOS:
 
 ## CI
 
-The GitHub Actions workflow restores, builds, and tests the solution on Windows, Ubuntu, and macOS using .NET 10. A green hosted CI run remains required before claiming complete cross-platform validation.
+The GitHub Actions workflow restores, builds, and tests the solution on Windows, Ubuntu, and macOS using .NET 10.
+
+Latest green run:
+
+- GitHub Actions run `37979253670`
+- Windows, Ubuntu, and macOS jobs passed
+- Restore, Release build, and tests passed on every runner
+
+## Acceptance status
+
+Verified:
+
+- .NET 10 and stable Uno Platform desktop solution builds.
+- Core tests pass.
+- Windows build and application behavior documented above.
+- Linux x64 and macOS ARM64 framework-dependent publishes complete.
+- Hosted CI passes on Windows, Ubuntu, and macOS.
+
+Still requiring native interactive validation:
+
+- Linux and macOS application launch and file picker.
+- Linux and macOS multi-window interaction.
+- Linux and macOS top-center positioning, Re-center, and always-on-top behavior.
+- Linux and macOS font fallback and settings restart behavior.
