@@ -1,0 +1,25 @@
+<Project Sdk="Uno.Sdk/6.7.30">
+  <PropertyGroup>
+    <TargetFramework>net10.0-desktop</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PromptDot.App</RootNamespace>
+    <AssemblyName>PromptDot.App</AssemblyName>
+    <ApplicationIcon />
+    <NoWarn>$(NoWarn);CA1010</NoWarn>
+    <!-- Uno.Sdk 6.7 includes its DevServer target for desktop heads; keep it out of optimized builds. -->
+    <Optimize>false</Optimize>
+    <UnoDisableHotDesign>true</UnoDisableHotDesign>
+    <UnoDisableMCPSupport>true</UnoDisableMCPSupport>
+    <UnoGenerateCodeBehind>true</UnoGenerateCodeBehind>
+    <UnoEnableDevServer>false</UnoEnableDevServer>
+    <EnableDevServer>false</EnableDevServer>
+    <UnoFeatures>SkiaRenderer;Skia</UnoFeatures>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PromptDot.Core\PromptDot.Core.csproj" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,64 @@
+<Page
+    x:Class="PromptDot.App.PrompterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Unloaded="OnUnloaded">
+  <Grid
+      x:Name="PrompterRoot"
+      Padding="28"
+      Background="Black">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="2*" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <TextBlock
+        x:Name="PreviousCueText"
+        AutomationProperties.Name="Previous cue"
+        FontFamily="{Binding FontFamily}"
+        FontSize="{Binding FontSize}"
+        FontWeight="{Binding CueFontWeight}"
+        LineHeight="{Binding CueLineHeight}"
+        Opacity="{Binding PreviousCueOpacity}"
+        Text="{Binding PreviousCue}"
+        TextAlignment="{Binding CueTextAlignment}"
+        TextTrimming="CharacterEllipsis"
+        TextWrapping="Wrap"
+        VerticalAlignment="Center" />
+
+    <ScrollViewer
+        Grid.Row="1"
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto"
+        VerticalScrollMode="Auto"
+        ZoomMode="Disabled">
+      <TextBlock
+          x:Name="CurrentCueText"
+          AutomationProperties.Name="Current cue"
+          FontFamily="{Binding FontFamily}"
+          FontSize="{Binding FontSize}"
+          FontWeight="{Binding CueFontWeight}"
+          LineHeight="{Binding CueLineHeight}"
+          Text="{Binding CurrentCue}"
+          TextAlignment="{Binding CueTextAlignment}"
+          TextWrapping="Wrap"
+          VerticalAlignment="Center" />
+    </ScrollViewer>
+
+    <TextBlock
+        x:Name="NextCueText"
+        Grid.Row="2"
+        AutomationProperties.Name="Next cue"
+        FontFamily="{Binding FontFamily}"
+        FontSize="{Binding FontSize}"
+        FontWeight="{Binding CueFontWeight}"
+        LineHeight="{Binding CueLineHeight}"
+        Opacity="{Binding NextCueOpacity}"
+        Text="{Binding NextCue}"
+        TextAlignment="{Binding CueTextAlignment}"
+        TextTrimming="CharacterEllipsis"
+        TextWrapping="Wrap"
+        VerticalAlignment="Center" />
+  </Grid>
+</Page>
