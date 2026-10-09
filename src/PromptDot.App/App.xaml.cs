@@ -42,6 +42,7 @@ public sealed partial class App : Application
             Content = page,
             Title = "PromptDot",
         };
+        WindowIconService.Apply(controlWindow);
         controlWindow.Closed += async (_, _) =>
         {
             await viewModel.SaveSettingsImmediatelyAsync();
