@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="src\PromptDot.App\PromptDot.App.csproj" />
-  <Project Path="src\PromptDot.Core\PromptDot.Core.csproj" />
-  <Project Path="tests\PromptDot.Core.Tests\PromptDot.Core.Tests.csproj" />
+  <Project Path="src/PromptDot.App/PromptDot.App.csproj" />
+  <Project Path="src/PromptDot.Core/PromptDot.Core.csproj" />
+  <Project Path="tests/PromptDot.Core.Tests/PromptDot.Core.Tests.csproj" />
 </Solution>
