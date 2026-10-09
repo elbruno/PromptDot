@@ -1,5 +1,6 @@
 ﻿using Uno.UI.Hosting;
 using Uno.UI.Runtime.Skia;
+using Velopack;
 
 namespace PromptDot.App;
 
@@ -15,6 +16,8 @@ public static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        VelopackApp.Build().Run();
+
         var host = UnoPlatformHostBuilder.Create()
             .App(() => new App())
             .UseX11()

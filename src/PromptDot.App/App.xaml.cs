@@ -32,6 +32,7 @@ public sealed partial class App : Application
             new ScriptFileService(),
             prompterWindowService,
             settingsService,
+            new VelopackUpdateService(),
             settings);
         var page = new MainPage();
         page.Initialize(viewModel);

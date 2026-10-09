@@ -16,3 +16,6 @@ obj/
 ## Test results
 TestResults/
 coverage/
+
+## Local release output
+artifacts/

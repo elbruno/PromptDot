@@ -8,5 +8,6 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
     <PackageVersion Include="MSTest.TestAdapter" Version="4.5.1" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.5.1" />
+    <PackageVersion Include="Velopack" Version="1.2.161" />
   </ItemGroup>
 </Project>

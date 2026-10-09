@@ -79,6 +79,7 @@ These shortcuts work inside PromptDot when the script editor is not receiving te
 | [Installation guide](docs/installation.md) | Prerequisites, source setup, launch, publish, update, and uninstall |
 | [User guide](docs/user-guide.md) | Scripts, playback, appearance, keyboard controls, and recommended workflow |
 | [Troubleshooting](docs/troubleshooting.md) | Common launch, file, window, font, and settings problems |
+| [Distribution and updates](docs/distribution.md) | Release automation, native packages, update behavior, and signing |
 | [Platform validation](docs/platform-validation.md) | Current Windows, Linux, macOS, and CI validation status |
 | [Architecture](docs/architecture.md) | Project boundaries and technical design |
 
@@ -93,7 +94,7 @@ These shortcuts work inside PromptDot when the script editor is not receiving te
 
 ## Privacy
 
-PromptDot v0.1 runs completely locally and requires no cloud services or internet connection. It does not use AI, Azure, speech recognition, microphone access, accounts, telemetry, or analytics.
+PromptDot v0.1 runs locally and requires no cloud services or internet connection for teleprompter features. It does not use AI, Azure, speech recognition, microphone access, accounts, telemetry, or analytics. It contacts GitHub only when the user explicitly selects **Check for updates**.
 
 ## Supported platforms
 

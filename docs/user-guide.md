@@ -99,6 +99,14 @@ PromptDot saves playback speed, appearance settings, always-on-top preference, a
 
 PromptDot does not save your script. Keep the original `.txt` or `.md` file if you need to reuse it.
 
+## Update PromptDot
+
+Select **Check for updates** in the Control Window. PromptDot contacts the public GitHub Releases feed only after this action.
+
+If an update is available, the button changes to **Install `<version>`**. Select it to download the verified package, save your settings, apply the update, and restart PromptDot.
+
+Updates are available only in installed release builds. Source checkouts and `dotnet run` builds must be updated with Git.
+
 ## Recommended recording workflow
 
 1. Split the script into short paragraph cues.
@@ -112,4 +120,4 @@ PromptDot does not save your script. Keep the original `.txt` or `.md` file if y
 
 ## Privacy
 
-PromptDot v0.1 runs locally. It does not use speech recognition, microphone access, AI, Azure, cloud services, accounts, telemetry, or analytics. It does not require an internet connection after dependencies have been restored and the application has been built.
+PromptDot v0.1 runs locally. It does not use speech recognition, microphone access, AI, Azure, cloud services, accounts, telemetry, or analytics. An internet connection is used only when you explicitly check for or install an update from GitHub Releases.

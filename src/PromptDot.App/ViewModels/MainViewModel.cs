@@ -8,6 +8,7 @@ using PromptDot.Core.Playback;
 using PromptDot.Core.Scripts;
 using PromptDot.Core.Settings;
 using PromptDot.Core.Windowing;
+using Velopack.Exceptions;
 using Windows.System;
 using CoreApplicationTheme = PromptDot.Core.Settings.ApplicationTheme;
 
@@ -29,6 +30,7 @@ internal sealed class MainViewModel : ObservableObject
     private readonly IScriptFileService scriptFileService;
     private readonly IPrompterWindowService prompterWindowService;
     private readonly ISettingsService settingsService;
+    private readonly IUpdateService updateService;
     private readonly DispatcherTimer playbackTimer;
     private readonly DispatcherTimer settingsSaveTimer;
     private PlaybackController playbackController;
@@ -50,16 +52,27 @@ internal sealed class MainViewModel : ObservableObject
     private double windowHeight = 420;
     private double? windowX;
     private double? windowY;
+    private bool isCheckingForUpdates;
+    private bool isUpdateReady;
+    private string updateButtonLabel = "Check for updates";
+    private string updateStatus = "Updates are checked only when requested.";
 
     public MainViewModel(
         IScriptFileService scriptFileService,
         IPrompterWindowService prompterWindowService,
         ISettingsService settingsService,
+        IUpdateService updateService,
         PromptDotSettings settings)
     {
         this.scriptFileService = scriptFileService;
         this.prompterWindowService = prompterWindowService;
         this.settingsService = settingsService;
+        this.updateService = updateService;
+        if (!updateService.IsInstalled)
+        {
+            updateStatus = "Update checks are available in installed builds.";
+        }
+
         ApplyInitialSettings(settings);
         playbackController = CreateController(scriptText);
         playbackTimer = new DispatcherTimer();
@@ -77,6 +90,9 @@ internal sealed class MainViewModel : ObservableObject
         NextCommand = new RelayCommand(MoveNext, () => playbackController.Navigator.CanMoveNext);
         ResetCommand = new RelayCommand(Reset, HasCurrentCue);
         RecenterCommand = new RelayCommand(prompterWindowService.Recenter);
+        CheckForUpdatesCommand = new AsyncRelayCommand(
+            CheckForUpdatesAsync,
+            () => !IsCheckingForUpdates);
     }
 
     public IReadOnlyList<CoreApplicationTheme> ApplicationThemes { get; } =
@@ -104,6 +120,8 @@ internal sealed class MainViewModel : ObservableObject
     public IRelayCommand ResetCommand { get; }
 
     public IRelayCommand RecenterCommand { get; }
+
+    public IAsyncRelayCommand CheckForUpdatesCommand { get; }
 
     public string ScriptText
     {
@@ -331,6 +349,30 @@ internal sealed class MainViewModel : ObservableObject
 
     public double? WindowY => windowY;
 
+    public bool IsCheckingForUpdates
+    {
+        get => isCheckingForUpdates;
+        private set
+        {
+            if (SetProperty(ref isCheckingForUpdates, value))
+            {
+                CheckForUpdatesCommand.NotifyCanExecuteChanged();
+            }
+        }
+    }
+
+    public string UpdateButtonLabel
+    {
+        get => updateButtonLabel;
+        private set => SetProperty(ref updateButtonLabel, value);
+    }
+
+    public string UpdateStatus
+    {
+        get => updateStatus;
+        private set => SetProperty(ref updateStatus, value);
+    }
+
     public void HandleShortcut(VirtualKey key)
     {
         switch (key)
@@ -388,6 +430,60 @@ internal sealed class MainViewModel : ObservableObject
             exception is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
             ErrorMessage = $"The script could not be loaded: {exception.Message}";
+        }
+    }
+
+    private async Task CheckForUpdatesAsync()
+    {
+        IsCheckingForUpdates = true;
+        ErrorMessage = null;
+
+        try
+        {
+            if (isUpdateReady)
+            {
+                UpdateStatus = "Downloading update: 0%";
+                var progress = new Progress<int>(
+                    value => UpdateStatus = $"Downloading update: {value}%");
+                await SaveSettingsImmediatelyAsync();
+                await updateService.DownloadAndRestartAsync(progress);
+                return;
+            }
+
+            UpdateStatus = "Checking for updates...";
+            var result = await updateService.CheckForUpdatesAsync();
+            if (!updateService.IsInstalled)
+            {
+                UpdateStatus =
+                    "Install PromptDot from GitHub Releases to enable updates.";
+                return;
+            }
+
+            if (!result.IsUpdateAvailable)
+            {
+                UpdateStatus = "PromptDot is up to date.";
+                return;
+            }
+
+            isUpdateReady = true;
+            UpdateButtonLabel = $"Install {result.Version}";
+            UpdateStatus =
+                $"Version {result.Version} is available. Select Install to update.";
+        }
+        catch (Exception exception) when (
+            exception is IOException or
+            HttpRequestException or
+            InvalidOperationException or
+            NotInstalledException or
+            ChecksumFailedException or
+            AcquireLockFailedException)
+        {
+            ErrorMessage = $"PromptDot could not update: {exception.Message}";
+            UpdateStatus = "Update failed. Try again later.";
+        }
+        finally
+        {
+            IsCheckingForUpdates = false;
         }
     }
 

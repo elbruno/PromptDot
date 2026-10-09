@@ -9,6 +9,7 @@
     <NoWarn>$(NoWarn);CA1010;CA1016</NoWarn>
     <UnoDisableHotDesign>true</UnoDisableHotDesign>
     <UnoDisableMCPSupport>true</UnoDisableMCPSupport>
+    <UnoDisableDevServer>true</UnoDisableDevServer>
     <UnoGenerateCodeBehind>true</UnoGenerateCodeBehind>
     <UnoFeatures>SkiaRenderer;Skia</UnoFeatures>
   </PropertyGroup>
@@ -16,6 +17,7 @@
     <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Velopack" />
     <ProjectReference Include="..\PromptDot.Core\PromptDot.Core.csproj" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
   </ItemGroup>

@@ -107,6 +107,13 @@
               AutomationProperties.Name="Always on top"
               Header="Always on top"
               IsOn="{Binding AlwaysOnTop, Mode=TwoWay}" />
+          <Button
+              AutomationProperties.Name="Check for application updates"
+              Command="{Binding CheckForUpdatesCommand}"
+              Content="{Binding UpdateButtonLabel}" />
+          <TextBlock
+              Text="{Binding UpdateStatus}"
+              TextWrapping="Wrap" />
         </StackPanel>
 
         <StackPanel Grid.Column="1" Spacing="8">

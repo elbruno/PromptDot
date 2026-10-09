@@ -12,7 +12,15 @@ Go to [GitHub Releases](https://github.com/elbruno/PromptDot/releases) and downl
 
 After downloading the zip, extract it and run the executable in the extracted folder.
 
-## Requirements
+Future releases use native Velopack packages:
+
+- Windows users run the `Setup.exe` installer.
+- Linux users download the `.AppImage`, run `chmod +x` once, and launch it.
+- macOS users install the application package provided in the release.
+
+PromptDot includes a user-initiated **Check for updates** control. It does not contact GitHub unless you select that control.
+
+## Source-build requirements
 
 - Windows, macOS, or Linux.
 - Git.
@@ -89,6 +97,14 @@ Replace `win-x64` with the appropriate runtime identifier. A framework-dependent
 
 ## Update
 
+Installed Velopack builds can be updated from the Control Window:
+
+1. Select **Check for updates**.
+2. If an update is available, select **Install `<version>`**.
+3. PromptDot downloads the package, saves settings, applies the update, and restarts.
+
+To update a source checkout instead:
+
 Pull the latest source and rebuild:
 
 ```bash
@@ -111,11 +127,13 @@ Scripts are not copied into the settings file. A script remains in memory unless
 
 ## Uninstall
 
-Because the current distribution is source-based:
+If you installed PromptDot from a source checkout:
 
 1. Close PromptDot.
 2. Delete the cloned repository and any local publish folder you created.
 3. Optionally delete `<LocalApplicationData>/PromptDot/settings.json` to remove saved preferences.
+
+If you installed a release package, remove the extracted folder and delete the settings file if you want a clean reset.
 
 Deleting the settings file resets PromptDot to its defaults the next time it starts.
 
