@@ -9,6 +9,7 @@ PromptDot is a local desktop teleprompter designed to keep the current script cu
 | [Installation guide](installation.md) | Requirements, installing from source, publishing a local build, updating, and uninstalling |
 | [User guide](user-guide.md) | Preparing scripts, using the two windows, playback, appearance, shortcuts, and recording tips |
 | [Troubleshooting](troubleshooting.md) | Common problems and safe recovery steps |
+| [Timed caption formats](timed-caption-formats.md) | Standards research, supported formats, playback interpretation, and future options |
 | [Distribution and updates](distribution.md) | Native packages, GitHub Releases, one-click updates, and signing requirements |
 | [Platform validation](platform-validation.md) | Validated behavior and remaining platform-specific testing |
 
@@ -21,4 +22,4 @@ PromptDot is a local desktop teleprompter designed to keep the current script cu
 
 ## Current distribution status
 
-PromptDot v0.1 can be built and run from source. Prebuilt installers and signed release packages are not published yet. The installation guide documents the supported source workflow without implying that an installer is available.
+PromptDot release packages are published through GitHub Releases for Windows x64, Linux x64, and macOS ARM64. The packages are not yet code-signed, so the installation guide documents the expected operating-system warnings.

@@ -12,8 +12,8 @@ PromptDot.App
         |
         v
 PromptDot.Core
-    script parsing and cue navigation
-    playback state and WPM timing
+    plain and timed-caption parsing
+    cue navigation and timestamp/WPM timing
     validated appearance and playback settings
     settings JSON serialization
     platform-independent positioning calculations
@@ -27,7 +27,7 @@ PromptDot.Core
 
 Core concepts include:
 
-- `PrompterScript`, `ScriptCue`, `ScriptParser`, and `ScriptNavigator`;
+- `PrompterScript`, `ScriptCue`, `ScriptParser`, `TimedTextParser`, and `ScriptNavigator`;
 - `PlaybackController`, `PlaybackState`, `PlaybackSettings`, and `CueTimingCalculator`;
 - `PromptDotSettings`, `PrompterSettings`, visual-setting enums, and JSON serialization;
 - `WindowBounds` and pure top-center/intersection calculations.
@@ -40,10 +40,10 @@ Core concepts include:
 - `MainPage` is the Control Window surface.
 - `PrompterPage` is the readable previous/current/next cue viewport.
 - `PrompterWindowService` owns secondary-window lifecycle, always-on-top, placement, resize tracking, and Windows native interop.
-- `ScriptFileService` loads `.txt` and `.md` files locally.
+- `ScriptFileService` loads `.txt`, `.md`, `.srt`, and `.vtt` files locally.
 - `SettingsService` stores JSON under the current user's local application-data directory.
 
-The application timer advances cues, but the duration policy remains in Core.
+The application timer advances cues, but the duration policy remains in Core. Plain scripts use calculated WPM durations. Timed scripts use the interval between caption start times, with the final cue using its authored duration.
 
 ## Platform isolation
 

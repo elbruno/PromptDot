@@ -20,9 +20,48 @@ You can type or paste text directly into the **Script** editor.
 
 PromptDot treats paragraphs separated by blank lines as individual cues. Short, focused paragraphs are easier to read naturally than long blocks.
 
-You can also select **Load script** to open a local `.txt` or `.md` file. Loading a file replaces the current editor content.
+You can also select **Load script** to open a local `.txt`, `.md`, `.srt`, or `.vtt` file. Loading a file replaces the current editor content.
 
 PromptDot preserves Unicode text, including accents, emoji, Greek, CJK scripts, and other supported characters.
+
+### Plain text and Markdown
+
+For `.txt` and `.md` files, PromptDot treats paragraphs separated by blank lines as cues. Automatic playback calculates each cue duration from the configured words-per-minute speed.
+
+### Timed SRT and WebVTT captions
+
+For `.srt` and `.vtt` files, PromptDot uses the start times authored in the caption file. The active cue advances when the next cue is scheduled to start. The final cue uses its own start and end time.
+
+The Playback section identifies the loaded format, shows the current cue's time range, and disables the words-per-minute slider because caption timestamps control playback.
+
+Example SRT:
+
+```srt
+1
+00:00:00,000 --> 00:00:04,500
+Welcome to PromptDot.
+
+2
+00:00:04,500 --> 00:00:09,000
+This script uses authored caption timing.
+```
+
+Example WebVTT:
+
+```vtt
+WEBVTT
+
+intro
+00:00:00.000 --> 00:00:04.500
+Welcome to PromptDot.
+
+00:00:04.500 --> 00:00:09.000
+This script uses authored caption timing.
+```
+
+Caption start times must be in increasing order, and every end time must be later than its start time. PromptDot reports invalid timing instead of silently falling back to WPM.
+
+Ready-to-use examples are available in [`samples/timed-script.srt`](../samples/timed-script.srt) and [`samples/timed-script.vtt`](../samples/timed-script.vtt).
 
 ## Open and position the Prompter
 
@@ -54,7 +93,9 @@ Use the controls in the Control Window:
 | **Pause** | Pause automatic advancement |
 | **Next** | Move forward one cue |
 
-The **Words per minute** slider controls automatic timing from 60 to 300 WPM. Start around 120 to 150 WPM for conversational delivery, then adjust for your script and speaking style.
+For plain text and Markdown, the **Words per minute** slider controls automatic timing from 60 to 300 WPM. Start around 120 to 150 WPM for conversational delivery, then adjust for your script and speaking style.
+
+For SRT and WebVTT scripts, authored timestamps control automatic advancement and the WPM slider is disabled. Manual navigation remains available in either timing mode.
 
 Playback stops at the end of the script. Manual navigation remains available while playback is paused.
 
@@ -106,7 +147,7 @@ If a font is unavailable, enter the name of a font installed on your operating s
 
 PromptDot saves playback speed, appearance settings, always-on-top preference, and Prompter window geometry locally. Changes are saved shortly after you apply them and saved again when you close the Control Window.
 
-PromptDot does not save your script. Keep the original `.txt` or `.md` file if you need to reuse it.
+PromptDot does not save your script. Keep the original `.txt`, `.md`, `.srt`, or `.vtt` file if you need to reuse it.
 
 ## Update PromptDot
 
@@ -118,7 +159,7 @@ Updates are available only in installed release builds. Source checkouts and `do
 
 ## Recommended recording workflow
 
-1. Split the script into short paragraph cues.
+1. Split a plain script into short paragraph cues, or prepare timed SRT or WebVTT captions.
 2. Load or paste the script.
 3. Open and position the Prompter near the webcam.
 4. Select a comfortable font size and line spacing.

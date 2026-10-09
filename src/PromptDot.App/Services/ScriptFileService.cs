@@ -5,7 +5,7 @@ namespace PromptDot.App.Services;
 
 internal sealed class ScriptFileService : IScriptFileService
 {
-    public async Task<string?> LoadScriptAsync()
+    public async Task<LoadedScript?> LoadScriptAsync()
     {
         var picker = new FileOpenPicker
         {
@@ -14,8 +14,12 @@ internal sealed class ScriptFileService : IScriptFileService
         };
         picker.FileTypeFilter.Add(".txt");
         picker.FileTypeFilter.Add(".md");
+        picker.FileTypeFilter.Add(".srt");
+        picker.FileTypeFilter.Add(".vtt");
 
         StorageFile? file = await picker.PickSingleFileAsync();
-        return file is null ? null : await FileIO.ReadTextAsync(file);
+        return file is null
+            ? null
+            : new LoadedScript(await FileIO.ReadTextAsync(file), file.FileType);
     }
 }

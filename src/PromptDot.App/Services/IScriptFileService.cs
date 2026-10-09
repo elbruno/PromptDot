@@ -2,5 +2,5 @@
 
 internal interface IScriptFileService
 {
-    Task<string?> LoadScriptAsync();
+    Task<LoadedScript?> LoadScriptAsync();
 }

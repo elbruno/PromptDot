@@ -19,7 +19,11 @@ public sealed class PrompterScript
         ArgumentNullException.ThrowIfNull(cues);
 
         Cues = cues
-            .Select((cue, index) => new ScriptCue(index, cue.Text))
+            .Select((cue, index) => new ScriptCue(
+                index,
+                cue.Text,
+                cue.StartTime,
+                cue.EndTime))
             .ToArray();
     }
 
@@ -32,4 +36,14 @@ public sealed class PrompterScript
     /// Gets a value indicating whether the script has no cues.
     /// </summary>
     public bool IsEmpty => Cues.Count == 0;
+
+    /// <summary>
+    /// Gets a value indicating whether every cue contains explicit timing.
+    /// </summary>
+    public bool IsTimed => !IsEmpty && Cues.All(cue => cue.IsTimed);
+
+    /// <summary>
+    /// Gets the end time of the final timed cue.
+    /// </summary>
+    public TimeSpan? TimedDuration => IsTimed ? Cues[^1].EndTime : null;
 }

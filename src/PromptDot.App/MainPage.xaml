@@ -27,7 +27,7 @@
         Grid.Row="1"
         AcceptsReturn="True"
         AutomationProperties.Name="Script editor"
-        Header="Script"
+        Header="{Binding ScriptEditorHeader}"
         HorizontalAlignment="Stretch"
         Text="{Binding ScriptText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         TextWrapping="Wrap"
@@ -97,8 +97,16 @@
               FontWeight="SemiBold"
               Text="Playback" />
           <TextBlock Text="{Binding WordsPerMinuteLabel}" />
+          <TextBlock
+              Text="{Binding ScriptTimingStatus}"
+              TextWrapping="Wrap" />
+          <TextBlock
+              AutomationProperties.Name="Current cue timing"
+              Text="{Binding CurrentCueTimingLabel}"
+              TextWrapping="Wrap" />
           <Slider
               AutomationProperties.Name="Words per minute"
+              IsEnabled="{Binding IsWordsPerMinuteEnabled}"
               Maximum="300"
               Minimum="60"
               StepFrequency="5"

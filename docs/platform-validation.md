@@ -9,6 +9,7 @@ Validated on Windows with the .NET 10 Release build:
 - secondary Prompter Window;
 - previous/current/next cue presentation;
 - automatic WPM-based cue advancement;
+- SRT and WebVTT parsing, validation, and timestamp-based cue advancement through core tests;
 - top-center placement on the current display;
 - always-on-top enabled by default through the desktop presenter;
 - WPM, font family, and font size changes persisted after closing the application;
@@ -67,6 +68,7 @@ Verified:
 
 - .NET 10 and stable Uno Platform desktop solution builds.
 - Core tests pass.
+- Plain-text WPM playback and timed-caption playback remain separate, validated modes.
 - Windows build and application behavior documented above.
 - Windows packaging completes with the platform icon, while Linux and macOS release jobs use committed PNG and ICNS assets.
 - Linux x64 and macOS ARM64 framework-dependent publishes complete.

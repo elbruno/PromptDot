@@ -36,8 +36,30 @@ public sealed class PlaybackController
     /// <summary>
     /// Gets the calculated duration of the current cue.
     /// </summary>
-    public TimeSpan CurrentCueDuration =>
-        CueTimingCalculator.Calculate(Navigator.Current?.Text, Settings);
+    public TimeSpan CurrentCueDuration
+    {
+        get
+        {
+            var current = Navigator.Current;
+            if (current?.IsTimed == true)
+            {
+                var nextStart = Navigator.Next?.StartTime;
+                if (nextStart > current.StartTime)
+                {
+                    return nextStart.Value - current.StartTime.Value;
+                }
+
+                return current.TimedDuration!.Value;
+            }
+
+            return CueTimingCalculator.Calculate(current?.Text, Settings);
+        }
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether playback uses authored caption timestamps.
+    /// </summary>
+    public bool IsTimed => Navigator.Script.IsTimed;
 
     /// <summary>
     /// Starts or resumes playback when the script contains a cue.

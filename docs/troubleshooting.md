@@ -49,7 +49,13 @@ When the script editor has focus, Space and arrow keys are reserved for editing.
 
 ## A script file does not appear in the picker
 
-PromptDot v0.1 accepts `.txt` and `.md` files. Convert other formats to plain text or Markdown before loading them.
+PromptDot accepts `.txt`, `.md`, `.srt`, and `.vtt` files. Convert other formats to one of these supported formats before loading them.
+
+## A timed caption file is rejected
+
+For SRT files, use timestamps such as `00:00:04,500`. For WebVTT files, start the file with `WEBVTT` and use timestamps such as `00:00:04.500`.
+
+Every cue must contain text, its end time must be later than its start time, and cue start times must be in increasing order. PromptDot does not silently replace invalid caption timing with WPM timing.
 
 ## The script formatting looks different
 
@@ -68,6 +74,8 @@ If characters still do not render, choose a system font that supports the script
 Adjust **Words per minute** between 60 and 300 WPM. Cue duration depends on the number of words in each cue, so very short and very long paragraphs may feel different at the same speed.
 
 For more consistent pacing, split long paragraphs into smaller cues.
+
+When an SRT or WebVTT file is loaded, its timestamps control playback and the words-per-minute slider is disabled. Edit the caption timestamps to change the pacing.
 
 ## Settings do not persist
 

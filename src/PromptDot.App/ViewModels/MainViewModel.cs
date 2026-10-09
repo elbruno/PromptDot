@@ -36,6 +36,8 @@ internal sealed class MainViewModel : ObservableObject, IDisposable
     private readonly SemaphoreSlim settingsSaveLock = new(1, 1);
     private PlaybackController playbackController;
     private string scriptText = DefaultScript;
+    private ScriptSourceFormat scriptSourceFormat;
+    private string scriptTimingStatus = string.Empty;
     private string? errorMessage;
     private int wordsPerMinute = PlaybackSettings.DefaultWordsPerMinute;
     private CoreApplicationTheme applicationTheme;
@@ -75,7 +77,8 @@ internal sealed class MainViewModel : ObservableObject, IDisposable
         }
 
         ApplyInitialSettings(settings);
-        playbackController = CreateController(scriptText);
+        playbackController = CreateController(scriptText, scriptSourceFormat);
+        UpdateTimingStatus();
         playbackTimer = new DispatcherTimer();
         playbackTimer.Tick += OnPlaybackTimerTick;
         settingsSaveTimer = new DispatcherTimer
@@ -159,6 +162,34 @@ internal sealed class MainViewModel : ObservableObject, IDisposable
     public string PlayPauseLabel =>
         playbackController.State == PlaybackState.Playing ? "Pause" : "Play";
 
+    public string CurrentCueTimingLabel
+    {
+        get
+        {
+            var cue = playbackController.Navigator.Current;
+            return cue?.IsTimed == true
+                ? $"Current cue: {FormatTimestamp(cue.StartTime!.Value)} → " +
+                  $"{FormatTimestamp(cue.EndTime!.Value)}"
+                : string.Empty;
+        }
+    }
+
+    public string ScriptEditorHeader => scriptSourceFormat switch
+    {
+        ScriptSourceFormat.Srt => "Script (SRT timed captions)",
+        ScriptSourceFormat.WebVtt => "Script (WebVTT timed captions)",
+        _ => "Script",
+    };
+
+    public bool IsWordsPerMinuteEnabled =>
+        scriptSourceFormat == ScriptSourceFormat.PlainText;
+
+    public string ScriptTimingStatus
+    {
+        get => scriptTimingStatus;
+        private set => SetProperty(ref scriptTimingStatus, value);
+    }
+
     public int WordsPerMinute
     {
         get => wordsPerMinute;
@@ -173,6 +204,7 @@ internal sealed class MainViewModel : ObservableObject, IDisposable
                 OnPropertyChanged(nameof(WordsPerMinuteLabel));
                 playbackController.UpdateSettings(new PlaybackSettings(validated));
                 RestartTimerWhenPlaying();
+                UpdateTimingStatus();
                 ScheduleSettingsSave();
             }
         }
@@ -417,10 +449,17 @@ internal sealed class MainViewModel : ObservableObject, IDisposable
         settingsSaveLock.Dispose();
     }
 
-    private PlaybackController CreateController(string text)
+    private PlaybackController CreateController(string text, ScriptSourceFormat format)
     {
+        var script = format switch
+        {
+            ScriptSourceFormat.Srt => TimedTextParser.ParseSrt(text),
+            ScriptSourceFormat.WebVtt => TimedTextParser.ParseWebVtt(text),
+            _ => ScriptParser.Parse(text),
+        };
+
         return new PlaybackController(
-            ScriptParser.Parse(text),
+            script,
             new PlaybackSettings(WordsPerMinute));
     }
 
@@ -428,16 +467,19 @@ internal sealed class MainViewModel : ObservableObject, IDisposable
     {
         try
         {
-            var loadedText = await scriptFileService.LoadScriptAsync();
-            if (loadedText is not null)
+            var loadedScript = await scriptFileService.LoadScriptAsync();
+            if (loadedScript is not null)
             {
-                ScriptText = loadedText;
+                LoadScript(loadedScript);
             }
 
             ErrorMessage = null;
         }
         catch (Exception exception) when (
-            exception is IOException or UnauthorizedAccessException or InvalidOperationException)
+            exception is IOException or
+            UnauthorizedAccessException or
+            InvalidOperationException or
+            FormatException)
         {
             ErrorMessage = $"The script could not be loaded: {exception.Message}";
         }
@@ -541,8 +583,26 @@ internal sealed class MainViewModel : ObservableObject, IDisposable
     private void RebuildScript()
     {
         playbackTimer.Stop();
-        playbackController = CreateController(ScriptText);
-        NotifyPlaybackChanged();
+        try
+        {
+            playbackController = CreateController(ScriptText, scriptSourceFormat);
+            if (ErrorMessage?.StartsWith(
+                "The timed script is invalid:",
+                StringComparison.Ordinal) == true)
+            {
+                ErrorMessage = null;
+            }
+            NotifyScriptChanged();
+        }
+        catch (FormatException exception)
+        {
+            playbackController = new PlaybackController(
+                PrompterScript.Empty,
+                new PlaybackSettings(WordsPerMinute));
+            ErrorMessage = $"The timed script is invalid: {exception.Message}";
+            ScriptTimingStatus = "Fix the caption timing before starting playback.";
+            NotifyPlaybackChanged();
+        }
     }
 
     private void StartTimer()
@@ -582,10 +642,69 @@ internal sealed class MainViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(CurrentCue));
         OnPropertyChanged(nameof(NextCue));
         OnPropertyChanged(nameof(PlayPauseLabel));
+        OnPropertyChanged(nameof(CurrentCueTimingLabel));
         PlayPauseCommand.NotifyCanExecuteChanged();
         PreviousCommand.NotifyCanExecuteChanged();
         NextCommand.NotifyCanExecuteChanged();
         ResetCommand.NotifyCanExecuteChanged();
+    }
+
+    private void LoadScript(LoadedScript loadedScript)
+    {
+        var format = loadedScript.Extension.ToLowerInvariant() switch
+        {
+            ".srt" => ScriptSourceFormat.Srt,
+            ".vtt" => ScriptSourceFormat.WebVtt,
+            _ => ScriptSourceFormat.PlainText,
+        };
+        var controller = CreateController(loadedScript.Content, format);
+
+        playbackTimer.Stop();
+        scriptSourceFormat = format;
+        scriptText = loadedScript.Content;
+        playbackController = controller;
+        OnPropertyChanged(nameof(ScriptText));
+        NotifyScriptChanged();
+    }
+
+    private void NotifyScriptChanged()
+    {
+        OnPropertyChanged(nameof(ScriptEditorHeader));
+        OnPropertyChanged(nameof(IsWordsPerMinuteEnabled));
+        UpdateTimingStatus();
+        NotifyPlaybackChanged();
+    }
+
+    private void UpdateTimingStatus()
+    {
+        var cueCount = playbackController.Navigator.Script.Cues.Count;
+        if (playbackController.IsTimed)
+        {
+            var formatName = scriptSourceFormat == ScriptSourceFormat.Srt
+                ? "SRT"
+                : "WebVTT";
+            var duration = playbackController.Navigator.Script.TimedDuration!.Value;
+            ScriptTimingStatus =
+                $"Timed captions ({formatName}): {cueCount} cues, ending at " +
+                $"{FormatTimestamp(duration)}. WPM is not used.";
+            return;
+        }
+
+        ScriptTimingStatus =
+            $"Words-per-minute timing: {cueCount} cues at {WordsPerMinute} WPM.";
+    }
+
+    private static string FormatTimestamp(TimeSpan value)
+    {
+        return $"{(int)value.TotalHours:00}:{value.Minutes:00}:" +
+               $"{value.Seconds:00}.{value.Milliseconds:000}";
+    }
+
+    private enum ScriptSourceFormat
+    {
+        PlainText,
+        Srt,
+        WebVtt,
     }
 
     private void NotifyPrompterAppearanceChanged()

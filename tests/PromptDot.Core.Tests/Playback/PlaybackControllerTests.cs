@@ -64,6 +64,32 @@ public sealed class PlaybackControllerTests
         Assert.IsGreaterThan(initialDuration, controller.CurrentCueDuration);
     }
 
+    [TestMethod]
+    public void TimedPlaybackUsesCaptionStartTimes()
+    {
+        var script = new PrompterScript(
+        [
+            new ScriptCue(
+                0,
+                "First",
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(3)),
+            new ScriptCue(
+                1,
+                "Second",
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(8)),
+        ]);
+        var controller = new PlaybackController(script);
+
+        Assert.IsTrue(controller.IsTimed);
+        Assert.AreEqual(TimeSpan.FromSeconds(4), controller.CurrentCueDuration);
+
+        controller.MoveNext();
+
+        Assert.AreEqual(TimeSpan.FromSeconds(3), controller.CurrentCueDuration);
+    }
+
     private static PlaybackController CreateController()
     {
         return new PlaybackController(ScriptParser.Parse("One\n\nTwo\n\nThree"));

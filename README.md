@@ -27,8 +27,8 @@ PromptDot keeps the script in a compact, resizable window directly under the web
    - On Windows, run the `Setup.exe`.
    - On Linux, run `chmod +x PromptDot-linux-x64.AppImage`, then launch it.
    - On macOS, open the `.pkg` and follow the installer.
-3. Type, paste, or load a `.txt` or `.md` script.
-4. Adjust the reading speed and appearance.
+3. Type, paste, or load a `.txt`, `.md`, `.srt`, or `.vtt` script.
+4. Adjust the reading speed for plain text, or use the timestamps already present in SRT and WebVTT captions.
 5. Select **Prompter**, resize the window, and position it directly under the webcam.
 6. Select **Play**, or navigate manually with the controls.
 
@@ -54,6 +54,7 @@ These shortcuts work inside PromptDot when the script editor is not receiving te
 | [Installation guide](docs/installation.md) | Download, installation, updates, source setup, and uninstall |
 | [User guide](docs/user-guide.md) | Illustrated guide to scripts, playback, appearance, and keyboard controls |
 | [Troubleshooting](docs/troubleshooting.md) | Common launch, file, window, font, and settings problems |
+| [Timed caption formats](docs/timed-caption-formats.md) | Standards research and PromptDot's SRT/WebVTT design |
 | [Distribution and updates](docs/distribution.md) | Release automation, native packages, update behavior, and signing |
 | [Platform validation](docs/platform-validation.md) | Current Windows, Linux, macOS, and CI validation status |
 | [Architecture](docs/architecture.md) | Project boundaries and technical design |
@@ -61,11 +62,12 @@ These shortcuts work inside PromptDot when the script editor is not receiving te
 ## Features
 
 - Type or paste a script.
-- Load local `.txt` and `.md` files.
+- Load local `.txt`, `.md`, `.srt`, and `.vtt` files.
 - Open a separate, movable, resizable Prompter window.
 - Place or re-center the Prompter at the top-center of the current Windows display.
 - Navigate manually with buttons or application keyboard shortcuts.
 - Advance automatically using a configurable 60-300 WPM reading speed.
+- Advance SRT and WebVTT captions using their authored timestamps.
 - Show previous, current, and next cues with the current cue visually dominant.
 - Choose System, Light, or Dark application appearance.
 - Choose Studio Dark, Studio Light, or High Contrast Prompter themes.
@@ -90,7 +92,7 @@ The application targets Uno Platform Skia Desktop for Windows, macOS, and Linux.
 ## Roadmap
 
 - **v0.1:** local teleprompter, script playback, top-center window, themes, typography, resize, settings, desktop packages, and updates.
-- **v0.2:** optional local/offline speech following.
+- **v0.2:** timed SRT and WebVTT scripts, followed by optional local/offline speech following.
 - **v0.3:** optional speech-provider integrations.
 
 Speech and cloud features are not part of v0.1 and must never be required for the core teleprompter.
