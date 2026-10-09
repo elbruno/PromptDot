@@ -4,15 +4,27 @@
 
 PromptDot is a small cross-platform desktop teleprompter for recording technical videos, presentations, demos, courses, podcasts, and social media videos while keeping your eye line close to the webcam.
 
+PromptDot keeps the script in a compact, resizable window directly under the webcam, so it feels like a natural reading surface rather than a full-screen slide.
+
 <p align="center">
   <img
     src="docs/assets/promptdot-hero.png"
-    alt="PromptDot teleprompter positioned close to a webcam above a laptop"
+    alt="PromptDot teleprompter concept showing a compact app window beneath the camera on a laptop monitor"
     width="720">
 </p>
 
+## Download ready-to-use builds
+
+We publish desktop packages for the main platforms so users can download and run PromptDot without building from source.
+
+- Windows x64
+- Linux x64
+- macOS ARM64
+
+Download the latest release from [GitHub Releases](https://github.com/elbruno/PromptDot/releases). Extract the package for your operating system and run the included executable.
+
 > [!NOTE]
-> PromptDot v0.1 is implemented and available from source. Prebuilt installers and signed release packages are not published yet.
+> Source builds are still supported for advanced users and contributors. The ready-to-use packages are the recommended path for normal users.
 
 ## Features
 

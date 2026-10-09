@@ -1,6 +1,16 @@
 # PromptDot installation guide
 
-PromptDot v0.1 is currently distributed as source code. There is no prebuilt installer or signed release package yet.
+PromptDot v0.1 is distributed as ready-to-use desktop packages for Windows, Linux, and macOS. Users can download the appropriate zip file from the GitHub releases page, extract it, and run the application without compiling from source.
+
+## Download the latest release
+
+Go to [GitHub Releases](https://github.com/elbruno/PromptDot/releases) and download the package that matches your operating system:
+
+- Windows x64
+- Linux x64
+- macOS ARM64
+
+After downloading the zip, extract it and run the executable in the extracted folder.
 
 ## Requirements
 
