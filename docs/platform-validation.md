@@ -11,8 +11,9 @@ Validated on Windows with the .NET 10 Release build:
 - automatic WPM-based cue advancement;
 - top-center placement on the current display;
 - always-on-top enabled by default through the desktop presenter;
-- WPM changes persisted across a real application close and restart;
+- WPM, font family, and font size changes persisted after closing the application;
 - Control Window closure also closes the Prompter Window;
+- application and installer executables contain the PromptDot icon;
 - Release restore, build, and tests with zero warnings;
 - settings serialization and validated fallback behavior through unit tests.
 
@@ -67,6 +68,7 @@ Verified:
 - .NET 10 and stable Uno Platform desktop solution builds.
 - Core tests pass.
 - Windows build and application behavior documented above.
+- Windows packaging completes with the platform icon, while Linux and macOS release jobs use committed PNG and ICNS assets.
 - Linux x64 and macOS ARM64 framework-dependent publishes complete.
 - Hosted CI passes on Windows, Ubuntu, and macOS.
 

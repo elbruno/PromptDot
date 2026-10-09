@@ -18,14 +18,17 @@ jobs:
             runtime: win-x64
             channel: win-x64
             main-exe: PromptDot.App.exe
+            icon: src/PromptDot.App/Assets/Icons/promptdot-icon.ico
           - os: ubuntu-latest
             runtime: linux-x64
             channel: linux-x64
             main-exe: PromptDot.App
+            icon: src/PromptDot.App/Assets/Icons/promptdot-icon-512.png
           - os: macos-latest
             runtime: osx-arm64
             channel: osx-arm64
             main-exe: PromptDot.App
+            icon: src/PromptDot.App/Assets/Icons/promptdot-icon.icns
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
@@ -75,6 +78,7 @@ jobs:
           --mainExe ${{ matrix.main-exe }}
           --packTitle PromptDot
           --packAuthors elbruno
+          --icon ${{ matrix.icon }}
           --runtime ${{ matrix.runtime }}
           --channel ${{ matrix.channel }}
           --outputDir artifacts/velopack/${{ matrix.runtime }}

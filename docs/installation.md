@@ -126,6 +126,8 @@ PromptDot stores preferences and Prompter window geometry in the current user's 
 <LocalApplicationData>/PromptDot/settings.json
 ```
 
+Applied changes are saved automatically after a short delay and saved again when the Control Window closes.
+
 Scripts are not copied into the settings file. A script remains in memory unless you explicitly load it again.
 
 ## Uninstall

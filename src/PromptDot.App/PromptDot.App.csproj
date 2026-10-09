@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>PromptDot.App</RootNamespace>
     <AssemblyName>PromptDot.App</AssemblyName>
-    <ApplicationIcon />
+    <ApplicationIcon>Assets\Icons\promptdot-icon.ico</ApplicationIcon>
     <!-- Uno's generated desktop application types and Debug assembly metadata trigger these analyzer false positives. -->
     <NoWarn>$(NoWarn);CA1010;CA1016</NoWarn>
     <UnoDisableHotDesign>true</UnoDisableHotDesign>

@@ -14,7 +14,7 @@ using CoreApplicationTheme = PromptDot.Core.Settings.ApplicationTheme;
 
 namespace PromptDot.App.ViewModels;
 
-internal sealed class MainViewModel : ObservableObject
+internal sealed class MainViewModel : ObservableObject, IDisposable
 {
     private const string DefaultScript =
         """
@@ -33,6 +33,7 @@ internal sealed class MainViewModel : ObservableObject
     private readonly IUpdateService updateService;
     private readonly DispatcherTimer playbackTimer;
     private readonly DispatcherTimer settingsSaveTimer;
+    private readonly SemaphoreSlim settingsSaveLock = new(1, 1);
     private PlaybackController playbackController;
     private string scriptText = DefaultScript;
     private string? errorMessage;
@@ -407,6 +408,15 @@ internal sealed class MainViewModel : ObservableObject
         await SaveSettingsAsync();
     }
 
+    public void Dispose()
+    {
+        playbackTimer.Stop();
+        settingsSaveTimer.Stop();
+        playbackTimer.Tick -= OnPlaybackTimerTick;
+        settingsSaveTimer.Tick -= OnSettingsSaveTimerTick;
+        settingsSaveLock.Dispose();
+    }
+
     private PlaybackController CreateController(string text)
     {
         return new PlaybackController(
@@ -639,14 +649,21 @@ internal sealed class MainViewModel : ObservableObject
 
     private async Task SaveSettingsAsync()
     {
+        var settings = CreateSettings();
+        await settingsSaveLock.WaitAsync();
+
         try
         {
-            await settingsService.SaveAsync(CreateSettings());
+            await settingsService.SaveAsync(settings);
         }
         catch (Exception exception) when (
             exception is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
             ErrorMessage = $"Settings could not be saved: {exception.Message}";
+        }
+        finally
+        {
+            settingsSaveLock.Release();
         }
     }
 }

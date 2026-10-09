@@ -104,7 +104,7 @@ If a font is unavailable, enter the name of a font installed on your operating s
 
 ## Saved preferences
 
-PromptDot saves playback speed, appearance settings, always-on-top preference, and Prompter window geometry locally.
+PromptDot saves playback speed, appearance settings, always-on-top preference, and Prompter window geometry locally. Changes are saved shortly after you apply them and saved again when you close the Control Window.
 
 PromptDot does not save your script. Keep the original `.txt` or `.md` file if you need to reuse it.
 

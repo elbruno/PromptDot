@@ -45,6 +45,7 @@ public sealed partial class App : Application
         controlWindow.Closed += async (_, _) =>
         {
             await viewModel.SaveSettingsImmediatelyAsync();
+            viewModel.Dispose();
             prompterWindowService.Close();
             controlWindow = null;
         };
