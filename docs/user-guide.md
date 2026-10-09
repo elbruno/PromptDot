@@ -2,7 +2,7 @@
 
 PromptDot uses two windows:
 
-- The **Control Window** contains the script editor, playback controls, speed, themes, and typography settings.
+- The **Control Window** uses a focused workspace for the script and card-based controls for playback, appearance, typography, and updates.
 - The **Prompter Window** presents the previous, current, and next cues close to your webcam.
 
 <p align="center">
@@ -12,7 +12,7 @@ PromptDot uses two windows:
     width="760">
 </p>
 
-<p align="center"><em>The Control Window manages the script, playback, appearance, and updates.</em></p>
+<p align="center"><em>The Control Window keeps the script workspace prominent, with playback and presentation settings grouped beside it.</em></p>
 
 ## Prepare a script
 

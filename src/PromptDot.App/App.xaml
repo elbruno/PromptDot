@@ -3,6 +3,77 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Application.Resources>
-    <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+          <SolidColorBrush x:Key="PromptDotCardBrush" Color="#F7F8FC" />
+          <SolidColorBrush x:Key="PromptDotCardAltBrush" Color="#EEF1F8" />
+          <SolidColorBrush x:Key="PromptDotCardBorderBrush" Color="#D9DEEA" />
+          <SolidColorBrush x:Key="PromptDotMutedTextBrush" Color="#596176" />
+          <SolidColorBrush x:Key="PromptDotEditorBrush" Color="#FFFFFF" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+          <SolidColorBrush x:Key="PromptDotCardBrush" Color="#14182A" />
+          <SolidColorBrush x:Key="PromptDotCardAltBrush" Color="#1A2035" />
+          <SolidColorBrush x:Key="PromptDotCardBorderBrush" Color="#2B3350" />
+          <SolidColorBrush x:Key="PromptDotMutedTextBrush" Color="#A7B0CA" />
+          <SolidColorBrush x:Key="PromptDotEditorBrush" Color="#0D1120" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+          <SolidColorBrush x:Key="PromptDotCardBrush" Color="{ThemeResource SystemColorWindowColor}" />
+          <SolidColorBrush x:Key="PromptDotCardAltBrush" Color="{ThemeResource SystemColorWindowColor}" />
+          <SolidColorBrush x:Key="PromptDotCardBorderBrush" Color="{ThemeResource SystemColorWindowTextColor}" />
+          <SolidColorBrush x:Key="PromptDotMutedTextBrush" Color="{ThemeResource SystemColorWindowTextColor}" />
+          <SolidColorBrush x:Key="PromptDotEditorBrush" Color="{ThemeResource SystemColorWindowColor}" />
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+
+      <SolidColorBrush x:Key="PromptDotAccentBrush" Color="#7357E8" />
+      <SolidColorBrush x:Key="PromptDotAccentHoverBrush" Color="#846DF0" />
+      <SolidColorBrush x:Key="PromptDotCyanBrush" Color="#36D7FF" />
+      <SolidColorBrush x:Key="PromptDotHeaderBrush" Color="#080C19" />
+      <SolidColorBrush x:Key="PromptDotHeaderBorderBrush" Color="#293153" />
+      <SolidColorBrush x:Key="PromptDotHeaderTextBrush" Color="#F7F8FF" />
+      <SolidColorBrush x:Key="PromptDotHeaderMutedBrush" Color="#AEB8D2" />
+
+      <Style x:Key="PromptDotCardStyle" TargetType="Border">
+        <Setter Property="Background" Value="{ThemeResource PromptDotCardBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource PromptDotCardBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="Padding" Value="18" />
+      </Style>
+
+      <Style x:Key="PromptDotPrimaryButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PromptDotAccentBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource PromptDotAccentBrush}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Padding" Value="18,10" />
+      </Style>
+
+      <Style x:Key="PromptDotSecondaryButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{ThemeResource PromptDotCardAltBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource PromptDotCardBorderBrush}" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="14,9" />
+      </Style>
+
+      <Style x:Key="PromptDotSectionTitleStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+      </Style>
+
+      <Style x:Key="PromptDotCaptionStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="{ThemeResource PromptDotMutedTextBrush}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+      </Style>
+    </ResourceDictionary>
   </Application.Resources>
 </Application>

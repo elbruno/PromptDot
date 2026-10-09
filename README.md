@@ -1,17 +1,13 @@
-# PromptDot
-
-> A tiny teleprompter that lives next to your camera.
+<p align="center">
+  <img
+    src="docs/assets/branding/promptdot-repo-header.jpg"
+    alt="PromptDot, a compact desktop teleprompter that stays directly under the webcam"
+    width="100%">
+</p>
 
 PromptDot is a small cross-platform desktop teleprompter for recording technical videos, presentations, demos, courses, podcasts, and social media videos while keeping your eye line close to the webcam.
 
-PromptDot keeps the script in a compact, resizable window directly under the webcam, so it feels like a natural reading surface rather than a full-screen slide.
-
-<p align="center">
-  <img
-    src="docs/assets/promptdot-hero.png"
-    alt="PromptDot teleprompter concept showing a compact app window beneath the camera on a laptop monitor"
-    width="720">
-</p>
+It keeps the script in a compact, resizable window directly under the webcam, so it feels like a natural reading surface rather than a full-screen slide.
 
 ## Quick start
 

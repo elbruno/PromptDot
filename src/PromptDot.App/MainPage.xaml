@@ -4,203 +4,364 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     IsTabStop="True"
     KeyDown="OnKeyDown">
-  <Grid
-      Padding="20"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      RowSpacing="16">
+  <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
-    <StackPanel Spacing="4">
-      <TextBlock
-          FontSize="28"
-          FontWeight="SemiBold"
-          Text="PromptDot" />
-      <TextBlock Text="A tiny teleprompter that lives next to your camera." />
-    </StackPanel>
-
-    <TextBox
-        Grid.Row="1"
-        AcceptsReturn="True"
-        AutomationProperties.Name="Script editor"
-        Header="{Binding ScriptEditorHeader}"
-        HorizontalAlignment="Stretch"
-        Text="{Binding ScriptText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-        TextWrapping="Wrap"
-        VerticalAlignment="Stretch" />
-
-    <Grid Grid.Row="2" ColumnSpacing="8">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="Auto" />
-      </Grid.ColumnDefinitions>
-      <Button
-          AutomationProperties.Name="Load script from file"
-          Command="{Binding LoadScriptCommand}"
-          Content="Load script" />
-      <Button
-          Grid.Column="1"
-          AutomationProperties.Name="Open Prompter window"
-          Command="{Binding ShowPrompterCommand}"
-          Content="Prompter" />
-      <Button
-          Grid.Column="2"
-          AutomationProperties.Name="Re-center Prompter window"
-          Command="{Binding RecenterCommand}"
-          Content="Re-center" />
-      <Button
-          Grid.Column="4"
-          AutomationProperties.Name="Return to beginning"
-          Command="{Binding ResetCommand}"
-          Content="Home" />
-      <Button
-          Grid.Column="5"
-          AutomationProperties.Name="Previous cue"
-          Command="{Binding PreviousCommand}"
-          Content="Previous" />
-      <Button
-          Grid.Column="6"
-          AutomationProperties.Name="Play or pause"
-          Command="{Binding PlayPauseCommand}"
-          Content="{Binding PlayPauseLabel}" />
-      <Button
-          Grid.Column="7"
-          AutomationProperties.Name="Next cue"
-          Command="{Binding NextCommand}"
-          Content="Next" />
-    </Grid>
+    <Border
+        Background="{StaticResource PromptDotHeaderBrush}"
+        BorderBrush="{StaticResource PromptDotHeaderBorderBrush}"
+        BorderThickness="0,0,0,1"
+        Padding="24,16">
+      <Grid ColumnSpacing="14">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Image
+            Width="50"
+            Height="50"
+            Source="Assets/Icons/promptdot-icon.png" />
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+          <TextBlock
+              Foreground="{StaticResource PromptDotHeaderTextBrush}"
+              FontSize="23"
+              FontWeight="SemiBold"
+              Text="PromptDot" />
+          <TextBlock
+              Foreground="{StaticResource PromptDotHeaderMutedBrush}"
+              Text="Stay on script. Stay on camera." />
+        </StackPanel>
+        <Border
+            Grid.Column="2"
+            Background="#20284A"
+            CornerRadius="14"
+            Padding="12,6"
+            VerticalAlignment="Center">
+          <StackPanel Orientation="Horizontal" Spacing="7">
+            <Ellipse
+                Width="8"
+                Height="8"
+                Fill="{StaticResource PromptDotCyanBrush}"
+                VerticalAlignment="Center" />
+            <TextBlock
+                Foreground="{StaticResource PromptDotHeaderTextBrush}"
+                FontSize="12"
+                FontWeight="SemiBold"
+                Text="{Binding ScriptTimingStatus}"
+                TextTrimming="CharacterEllipsis"
+                MaxWidth="260" />
+          </StackPanel>
+        </Border>
+      </Grid>
+    </Border>
 
     <ScrollViewer
-        Grid.Row="3"
-        HorizontalScrollBarVisibility="Disabled"
-        MaxHeight="280">
-      <Grid ColumnSpacing="24">
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        Grid.Row="1"
+        HorizontalScrollBarVisibility="Auto"
+        VerticalScrollBarVisibility="Auto">
+      <Grid
+          MinWidth="900"
+          Padding="22"
+          ColumnSpacing="18">
+      <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="5*" />
+          <ColumnDefinition Width="3*" />
+      </Grid.ColumnDefinitions>
 
-        <StackPanel Spacing="8">
-          <TextBlock
-              FontSize="18"
-              FontWeight="SemiBold"
-              Text="Playback" />
-          <TextBlock Text="{Binding WordsPerMinuteLabel}" />
-          <TextBlock
-              Text="{Binding ScriptTimingStatus}"
-              TextWrapping="Wrap" />
-          <TextBlock
-              AutomationProperties.Name="Current cue timing"
-              Text="{Binding CurrentCueTimingLabel}"
-              TextWrapping="Wrap" />
-          <Slider
-              AutomationProperties.Name="Words per minute"
-              IsEnabled="{Binding IsWordsPerMinuteEnabled}"
-              Maximum="300"
-              Minimum="60"
-              StepFrequency="5"
-              Value="{Binding WordsPerMinute, Mode=TwoWay}" />
-          <ToggleSwitch
-              AutomationProperties.Name="Always on top"
-              Header="Always on top"
-              IsOn="{Binding AlwaysOnTop, Mode=TwoWay}" />
-          <Button
-              AutomationProperties.Name="Check for application updates"
-              Command="{Binding CheckForUpdatesCommand}"
-              Content="{Binding UpdateButtonLabel}" />
-          <TextBlock
-              Text="{Binding UpdateStatus}"
-              TextWrapping="Wrap" />
+        <StackPanel Spacing="14">
+          <Border Style="{StaticResource PromptDotCardStyle}">
+            <Grid RowSpacing="14">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+              </Grid.RowDefinitions>
+              <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="3">
+                  <TextBlock
+                      Style="{StaticResource PromptDotSectionTitleStyle}"
+                      Text="{Binding ScriptEditorHeader}" />
+                  <TextBlock
+                      Style="{StaticResource PromptDotCaptionStyle}"
+                      Text="Write, paste, or load a script. Blank lines create natural reading cues." />
+                </StackPanel>
+                <Button
+                    Grid.Column="1"
+                    AutomationProperties.Name="Load script from file"
+                    Command="{Binding LoadScriptCommand}"
+                    Content="Load script"
+                    Style="{StaticResource PromptDotSecondaryButtonStyle}"
+                    VerticalAlignment="Center" />
+              </Grid>
+              <TextBox
+                  Grid.Row="1"
+                  MinHeight="390"
+                  AcceptsReturn="True"
+                  AutomationProperties.Name="Script editor"
+                  Background="{ThemeResource PromptDotEditorBrush}"
+                  BorderBrush="{ThemeResource PromptDotCardBorderBrush}"
+                  CornerRadius="12"
+                  FontSize="16"
+                  HorizontalAlignment="Stretch"
+                  Padding="16"
+                  Text="{Binding ScriptText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  TextWrapping="Wrap"
+                  VerticalAlignment="Stretch" />
+              <Grid Grid.Row="2" ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Style="{StaticResource PromptDotCaptionStyle}"
+                    Text="{Binding CurrentCueTimingLabel}"
+                    VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                  <Button
+                      AutomationProperties.Name="Open Prompter window"
+                      Command="{Binding ShowPrompterCommand}"
+                      Content="Open prompter"
+                      Style="{StaticResource PromptDotPrimaryButtonStyle}" />
+                  <Button
+                      AutomationProperties.Name="Re-center Prompter window"
+                      Command="{Binding RecenterCommand}"
+                      Content="Re-center"
+                      Style="{StaticResource PromptDotSecondaryButtonStyle}" />
+                </StackPanel>
+              </Grid>
+            </Grid>
+          </Border>
+
+          <Border Style="{StaticResource PromptDotCardStyle}">
+            <Grid ColumnSpacing="12">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <StackPanel Margin="0,0,8,0" VerticalAlignment="Center">
+                <TextBlock
+                    Style="{StaticResource PromptDotSectionTitleStyle}"
+                    Text="Transport" />
+                <TextBlock
+                    Style="{StaticResource PromptDotCaptionStyle}"
+                    Text="Keyboard: Space, arrows, Home" />
+              </StackPanel>
+              <Button
+                  Grid.Column="2"
+                  AutomationProperties.Name="Return to beginning"
+                  Command="{Binding ResetCommand}"
+                  Content="Home"
+                  Style="{StaticResource PromptDotSecondaryButtonStyle}" />
+              <Button
+                  Grid.Column="3"
+                  AutomationProperties.Name="Previous cue"
+                  Command="{Binding PreviousCommand}"
+                  Content="Previous"
+                  Style="{StaticResource PromptDotSecondaryButtonStyle}" />
+              <Button
+                  Grid.Column="4"
+                  AutomationProperties.Name="Play or pause"
+                  Command="{Binding PlayPauseCommand}"
+                  Content="{Binding PlayPauseLabel}"
+                  Style="{StaticResource PromptDotPrimaryButtonStyle}" />
+              <Button
+                  Grid.Column="5"
+                  AutomationProperties.Name="Next cue"
+                  Command="{Binding NextCommand}"
+                  Content="Next"
+                  Style="{StaticResource PromptDotSecondaryButtonStyle}" />
+            </Grid>
+          </Border>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Spacing="8">
-          <TextBlock
-              FontSize="18"
-              FontWeight="SemiBold"
-              Text="Themes" />
-          <ComboBox
-              AutomationProperties.Name="Application theme"
-              Header="Application"
-              ItemsSource="{Binding ApplicationThemes}"
-              SelectedItem="{Binding ApplicationTheme, Mode=TwoWay}" />
-          <ComboBox
-              AutomationProperties.Name="Prompter theme"
-              Header="Prompter"
-              ItemsSource="{Binding PrompterThemes}"
-              SelectedItem="{Binding PrompterTheme, Mode=TwoWay}" />
-        </StackPanel>
+        <StackPanel Grid.Column="1" Spacing="14">
+          <Border Style="{StaticResource PromptDotCardStyle}">
+            <StackPanel Spacing="10">
+              <StackPanel Spacing="3">
+                <TextBlock
+                    Style="{StaticResource PromptDotSectionTitleStyle}"
+                    Text="Playback" />
+                <TextBlock
+                    Style="{StaticResource PromptDotCaptionStyle}"
+                    Text="Control timing and window behavior." />
+              </StackPanel>
+              <TextBlock FontWeight="SemiBold" Text="{Binding WordsPerMinuteLabel}" />
+              <Slider
+                  AutomationProperties.Name="Words per minute"
+                  IsEnabled="{Binding IsWordsPerMinuteEnabled}"
+                  Maximum="300"
+                  Minimum="60"
+                  StepFrequency="5"
+                  Value="{Binding WordsPerMinute, Mode=TwoWay}" />
+              <TextBlock
+                  AutomationProperties.Name="Current cue timing"
+                  Style="{StaticResource PromptDotCaptionStyle}"
+                  Text="{Binding CurrentCueTimingLabel}" />
+              <ToggleSwitch
+                  AutomationProperties.Name="Always on top"
+                  Header="Keep prompter always on top"
+                  IsOn="{Binding AlwaysOnTop, Mode=TwoWay}" />
+            </StackPanel>
+          </Border>
 
-        <StackPanel Grid.Column="2" Spacing="8">
-          <TextBlock
-              FontSize="18"
-              FontWeight="SemiBold"
-              Text="Typography" />
-          <TextBox
-              AutomationProperties.Name="Font family"
-              Header="Font family"
-              Text="{Binding FontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-          <TextBlock Text="{Binding FontSizeLabel}" />
-          <Slider
-              AutomationProperties.Name="Font size"
-              Maximum="120"
-              Minimum="18"
-              StepFrequency="1"
-              Value="{Binding FontSize, Mode=TwoWay}" />
-          <ComboBox
-              AutomationProperties.Name="Font weight"
-              Header="Weight"
-              ItemsSource="{Binding FontWeights}"
-              SelectedItem="{Binding FontWeight, Mode=TwoWay}" />
-          <ComboBox
-              AutomationProperties.Name="Text alignment"
-              Header="Alignment"
-              ItemsSource="{Binding TextAlignments}"
-              SelectedItem="{Binding TextAlignment, Mode=TwoWay}" />
-          <TextBlock Text="Line spacing" />
-          <Slider
-              AutomationProperties.Name="Line spacing"
-              Maximum="2.5"
-              Minimum="1"
-              StepFrequency="0.1"
-              Value="{Binding LineSpacing, Mode=TwoWay}" />
-          <TextBlock Text="Background opacity" />
-          <Slider
-              AutomationProperties.Name="Background opacity"
-              Maximum="1"
-              Minimum="0"
-              StepFrequency="0.05"
-              Value="{Binding BackgroundOpacity, Mode=TwoWay}" />
-          <TextBlock Text="Previous cue opacity" />
-          <Slider
-              AutomationProperties.Name="Previous cue opacity"
-              Maximum="1"
-              Minimum="0"
-              StepFrequency="0.05"
-              Value="{Binding PreviousCueOpacity, Mode=TwoWay}" />
-          <TextBlock Text="Next cue opacity" />
-          <Slider
-              AutomationProperties.Name="Next cue opacity"
-              Maximum="1"
-              Minimum="0"
-              StepFrequency="0.05"
-              Value="{Binding NextCueOpacity, Mode=TwoWay}" />
+          <Border Style="{StaticResource PromptDotCardStyle}">
+            <StackPanel Spacing="10">
+              <StackPanel Spacing="3">
+                <TextBlock
+                    Style="{StaticResource PromptDotSectionTitleStyle}"
+                    Text="Appearance" />
+                <TextBlock
+                    Style="{StaticResource PromptDotCaptionStyle}"
+                    Text="Use separate themes for the controls and the audience-facing prompter." />
+              </StackPanel>
+              <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ComboBox
+                    AutomationProperties.Name="Application theme"
+                    Header="Application"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding ApplicationThemes}"
+                    SelectedItem="{Binding ApplicationTheme, Mode=TwoWay}" />
+                <ComboBox
+                    Grid.Column="1"
+                    AutomationProperties.Name="Prompter theme"
+                    Header="Prompter"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding PrompterThemes}"
+                    SelectedItem="{Binding PrompterTheme, Mode=TwoWay}" />
+              </Grid>
+            </StackPanel>
+          </Border>
+
+          <Border Style="{StaticResource PromptDotCardStyle}">
+            <StackPanel Spacing="9">
+              <StackPanel Spacing="3">
+                <TextBlock
+                    Style="{StaticResource PromptDotSectionTitleStyle}"
+                    Text="Typography" />
+                <TextBlock
+                    Style="{StaticResource PromptDotCaptionStyle}"
+                    Text="Tune the prompter for your distance and recording setup." />
+              </StackPanel>
+              <TextBox
+                  AutomationProperties.Name="Font family"
+                  Header="Font family"
+                  Text="{Binding FontFamily, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+              <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ComboBox
+                    AutomationProperties.Name="Font weight"
+                    Header="Weight"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding FontWeights}"
+                    SelectedItem="{Binding FontWeight, Mode=TwoWay}" />
+                <ComboBox
+                    Grid.Column="1"
+                    AutomationProperties.Name="Text alignment"
+                    Header="Alignment"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding TextAlignments}"
+                    SelectedItem="{Binding TextAlignment, Mode=TwoWay}" />
+              </Grid>
+              <TextBlock FontWeight="SemiBold" Text="{Binding FontSizeLabel}" />
+              <Slider
+                  AutomationProperties.Name="Font size"
+                  Maximum="120"
+                  Minimum="18"
+                  StepFrequency="1"
+                  Value="{Binding FontSize, Mode=TwoWay}" />
+              <TextBlock Style="{StaticResource PromptDotCaptionStyle}" Text="Line spacing" />
+              <Slider
+                  AutomationProperties.Name="Line spacing"
+                  Maximum="2.5"
+                  Minimum="1"
+                  StepFrequency="0.1"
+                  Value="{Binding LineSpacing, Mode=TwoWay}" />
+              <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="2">
+                  <TextBlock Style="{StaticResource PromptDotCaptionStyle}" Text="Background" />
+                  <Slider
+                      AutomationProperties.Name="Background opacity"
+                      Maximum="1"
+                      Minimum="0"
+                      StepFrequency="0.05"
+                      Value="{Binding BackgroundOpacity, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Spacing="2">
+                  <TextBlock Style="{StaticResource PromptDotCaptionStyle}" Text="Previous cue" />
+                  <Slider
+                      AutomationProperties.Name="Previous cue opacity"
+                      Maximum="1"
+                      Minimum="0"
+                      StepFrequency="0.05"
+                      Value="{Binding PreviousCueOpacity, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Spacing="2">
+                  <TextBlock Style="{StaticResource PromptDotCaptionStyle}" Text="Next cue" />
+                  <Slider
+                      AutomationProperties.Name="Next cue opacity"
+                      Maximum="1"
+                      Minimum="0"
+                      StepFrequency="0.05"
+                      Value="{Binding NextCueOpacity, Mode=TwoWay}" />
+                </StackPanel>
+              </Grid>
+            </StackPanel>
+          </Border>
+
+          <Border Style="{StaticResource PromptDotCardStyle}">
+            <Grid ColumnSpacing="10">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <StackPanel Spacing="3" VerticalAlignment="Center">
+                <TextBlock
+                    Style="{StaticResource PromptDotSectionTitleStyle}"
+                    Text="Application updates" />
+                <TextBlock
+                    Style="{StaticResource PromptDotCaptionStyle}"
+                    Text="{Binding UpdateStatus}" />
+              </StackPanel>
+              <Button
+                  Grid.Column="1"
+                  AutomationProperties.Name="Check for application updates"
+                  Command="{Binding CheckForUpdatesCommand}"
+                  Content="{Binding UpdateButtonLabel}"
+                  Style="{StaticResource PromptDotSecondaryButtonStyle}"
+                  VerticalAlignment="Center" />
+            </Grid>
+          </Border>
         </StackPanel>
       </Grid>
     </ScrollViewer>
 
     <InfoBar
-        Grid.RowSpan="4"
+        Grid.RowSpan="2"
+        Margin="20"
         HorizontalAlignment="Stretch"
         IsClosable="True"
         IsOpen="{Binding HasError}"
