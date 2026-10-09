@@ -58,7 +58,7 @@ The GitHub Actions workflow restores, builds, and tests the solution on Windows,
 
 Latest green run:
 
-- GitHub Actions run `37979253670`
+- GitHub Actions run `37991740418`
 - Windows, Ubuntu, and macOS jobs passed
 - Restore, Release build, and tests passed on every runner
 
@@ -73,6 +73,7 @@ Verified:
 - Windows packaging completes with the platform icon, while Linux and macOS release jobs use committed PNG and ICNS assets.
 - Linux x64 and macOS ARM64 framework-dependent publishes complete.
 - Hosted CI passes on Windows, Ubuntu, and macOS.
+- PromptDot v0.2.0 packages and update metadata were published successfully for Windows x64, Linux x64, and macOS ARM64.
 
 Still requiring native interactive validation:
 
