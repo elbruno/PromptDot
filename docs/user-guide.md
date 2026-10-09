@@ -7,12 +7,12 @@ PromptDot uses two windows:
 
 <p align="center">
   <img
-    src="assets/promptdot-workflow.png"
-    alt="Conceptual illustration of the PromptDot control and prompter workflow"
-    width="680">
+    src="assets/control-window.jpg"
+    alt="PromptDot Control Window with the script editor, playback controls, themes, and typography settings"
+    width="760">
 </p>
 
-<p align="center"><em>Conceptual workflow illustration. The exact interface may differ.</em></p>
+<p align="center"><em>The Control Window manages the script, playback, appearance, and updates.</em></p>
 
 ## Prepare a script
 
@@ -30,6 +30,15 @@ PromptDot preserves Unicode text, including accents, emoji, Greek, CJK scripts, 
 2. Move or resize the Prompter Window to fit your recording layout.
 3. Select **Re-center** to place it at the top-center of the current display.
 4. Leave **Always on top** enabled when you want the Prompter to remain visible over other applications.
+
+<p align="center">
+  <img
+    src="assets/prompter-window.jpg"
+    alt="PromptDot Prompter Window showing the current cue and the next cue"
+    width="760">
+</p>
+
+<p align="center"><em>The Prompter is shown enlarged for readability. Resize it to a compact window directly under the webcam during normal use.</em></p>
 
 For the best eye line, place the Prompter directly below or beside the webcam. Keep it narrow enough that your eyes do not travel noticeably across the screen.
 
