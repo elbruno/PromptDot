@@ -5,14 +5,11 @@
     <RootNamespace>PromptDot.App</RootNamespace>
     <AssemblyName>PromptDot.App</AssemblyName>
     <ApplicationIcon />
-    <NoWarn>$(NoWarn);CA1010</NoWarn>
-    <!-- Uno.Sdk 6.7 includes its DevServer target for desktop heads; keep it out of optimized builds. -->
-    <Optimize>false</Optimize>
+    <!-- Uno's generated desktop application types and Debug assembly metadata trigger these analyzer false positives. -->
+    <NoWarn>$(NoWarn);CA1010;CA1016</NoWarn>
     <UnoDisableHotDesign>true</UnoDisableHotDesign>
     <UnoDisableMCPSupport>true</UnoDisableMCPSupport>
     <UnoGenerateCodeBehind>true</UnoGenerateCodeBehind>
-    <UnoEnableDevServer>false</UnoEnableDevServer>
-    <EnableDevServer>false</EnableDevServer>
     <UnoFeatures>SkiaRenderer;Skia</UnoFeatures>
   </PropertyGroup>
   <ItemGroup>

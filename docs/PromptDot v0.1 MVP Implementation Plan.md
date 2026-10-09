@@ -1431,7 +1431,7 @@ PromptDot v0.1 is complete when all of the following are true.
 - [x] `dotnet build` succeeds.
 - [x] `dotnet test` succeeds.
 - [x] No known vulnerable NuGet packages are present.
-- [ ] GitHub Actions build is green.
+- [x] GitHub Actions build is green.
 - [x] README explains build and usage.
 - [x] README explicitly documents local-only/privacy behavior.
 

@@ -20,7 +20,7 @@ jobs:
         with:
           dotnet-version: 10.0.x
       - name: Restore
-        run: dotnet restore PromptDot.slnx
+        run: dotnet restore PromptDot.slnx -p:Configuration=Release -p:Optimize=true
       - name: Build
         run: dotnet build PromptDot.slnx --no-restore --configuration Release
       - name: Test

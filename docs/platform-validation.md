@@ -10,6 +10,8 @@ Validated on Windows with the .NET 10 Release build:
 - previous/current/next cue presentation;
 - automatic WPM-based cue advancement;
 - top-center placement on the current display;
+- always-on-top enabled by default through the desktop presenter;
+- WPM changes persisted across a real application close and restart;
 - Control Window closure also closes the Prompter Window;
 - Release restore, build, and tests with zero warnings;
 - settings serialization and validated fallback behavior through unit tests.
