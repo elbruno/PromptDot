@@ -4,9 +4,15 @@
 
 PromptDot is a small cross-platform desktop teleprompter for recording technical videos, presentations, demos, courses, podcasts, and social media videos while keeping your eye line close to the webcam.
 
-<!-- Logo placeholder: add the PromptDot logo here. -->
+<p align="center">
+  <img
+    src="docs/assets/promptdot-hero.png"
+    alt="PromptDot teleprompter positioned close to a webcam above a laptop"
+    width="720">
+</p>
 
-<!-- Screenshot placeholder: add Control and Prompter window screenshots here. -->
+> [!NOTE]
+> PromptDot v0.1 is implemented and available from source. Prebuilt installers and signed release packages are not published yet.
 
 ## Features
 
@@ -24,7 +30,16 @@ PromptDot is a small cross-platform desktop teleprompter for recording technical
 - Persist preferences and Prompter window geometry locally.
 - Preserve Unicode text, including accents, CJK scripts, Greek, and emoji.
 
-## Getting started
+## Quick start
+
+Build and launch PromptDot from source:
+
+```bash
+git clone https://github.com/elbruno/PromptDot.git
+cd PromptDot
+dotnet restore
+dotnet run --project src/PromptDot.App/PromptDot.App.csproj
+```
 
 1. Launch PromptDot.
 2. Type, paste, or load a script.
@@ -44,6 +59,26 @@ These shortcuts work inside PromptDot when the script editor is not receiving te
 | Left Arrow | Previous cue |
 | Home | Return to the beginning |
 
+## Documentation
+
+| Guide | Purpose |
+|---|---|
+| [Documentation home](docs/README.md) | Entry point for all user and contributor documentation |
+| [Installation guide](docs/installation.md) | Prerequisites, source setup, launch, publish, update, and uninstall |
+| [User guide](docs/user-guide.md) | Scripts, playback, appearance, keyboard controls, and recommended workflow |
+| [Troubleshooting](docs/troubleshooting.md) | Common launch, file, window, font, and settings problems |
+| [Platform validation](docs/platform-validation.md) | Current Windows, Linux, macOS, and CI validation status |
+| [Architecture](docs/architecture.md) | Project boundaries and technical design |
+
+<p align="center">
+  <img
+    src="docs/assets/promptdot-workflow.png"
+    alt="Conceptual PromptDot workflow from editing a script to presenting near the camera"
+    width="720">
+</p>
+
+<p align="center"><em>Conceptual workflow illustration. The exact application interface may differ.</em></p>
+
 ## Privacy
 
 PromptDot v0.1 runs completely locally and requires no cloud services or internet connection. It does not use AI, Azure, speech recognition, microphone access, accounts, telemetry, or analytics.
@@ -61,7 +96,7 @@ The application targets Uno Platform Skia Desktop for Windows, macOS, and Linux.
 - .NET 10.0.401 SDK or a compatible .NET 10 servicing update
 - Uno Platform desktop development prerequisites
 
-See the [Uno Platform getting started documentation](https://platform.uno/docs/articles/getting-started/) for operating-system-specific requirements.
+See the [installation guide](docs/installation.md) and the [Uno Platform getting started documentation](https://platform.uno/docs/articles/getting-started/) for operating-system-specific requirements.
 
 ## Build and test
 
