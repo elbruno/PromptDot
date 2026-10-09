@@ -1,0 +1,18 @@
+## .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+## Uno Platform
+.uno/
+.uno-caches/
+
+## IDEs
+.idea/
+.vscode/
+
+## Test results
+TestResults/
+coverage/
