@@ -15,16 +15,16 @@ PromptDot keeps the script in a compact, resizable window directly under the web
 
 ## Download ready-to-use builds
 
-We publish desktop packages for the main platforms so users can download and run PromptDot without building from source.
+We publish self-contained desktop packages for the main platforms so users can download and run PromptDot without installing the .NET SDK or building from source.
 
-- Windows x64
-- Linux x64
-- macOS ARM64
+- Windows x64: `PromptDot-win-x64-Setup.exe`
+- Linux x64: `PromptDot-linux-x64.AppImage`
+- macOS ARM64: `PromptDot-osx-arm64-Setup.pkg`
 
-Download the latest release from [GitHub Releases](https://github.com/elbruno/PromptDot/releases). Extract the package for your operating system and run the included executable.
+Download the latest package from [GitHub Releases](https://github.com/elbruno/PromptDot/releases).
 
 > [!NOTE]
-> Source builds are still supported for advanced users and contributors. The ready-to-use packages are the recommended path for normal users.
+> The current packages are not code-signed. Windows SmartScreen and macOS Gatekeeper may display warnings until project signing is configured. Source builds remain available for contributors.
 
 ## Features
 

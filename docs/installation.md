@@ -6,19 +6,22 @@ PromptDot v0.1 is distributed as ready-to-use desktop packages for Windows, Linu
 
 Go to [GitHub Releases](https://github.com/elbruno/PromptDot/releases) and download the package that matches your operating system:
 
-- Windows x64
-- Linux x64
-- macOS ARM64
+- Windows x64: `PromptDot-win-x64-Setup.exe`
+- Linux x64: `PromptDot-linux-x64.AppImage`
+- macOS ARM64: `PromptDot-osx-arm64-Setup.pkg`
 
-After downloading the zip, extract it and run the executable in the extracted folder.
+The packages are self-contained and do not require the .NET SDK.
 
-Future releases use native Velopack packages:
+Install the current Velopack package:
 
 - Windows users run the `Setup.exe` installer.
 - Linux users download the `.AppImage`, run `chmod +x` once, and launch it.
 - macOS users install the application package provided in the release.
 
 PromptDot includes a user-initiated **Check for updates** control. It does not contact GitHub unless you select that control.
+
+> [!WARNING]
+> The current packages are not code-signed. Windows SmartScreen and macOS Gatekeeper may warn or block the package. Public signing and macOS notarization are the remaining requirements for a warning-free installation experience.
 
 ## Source-build requirements
 
